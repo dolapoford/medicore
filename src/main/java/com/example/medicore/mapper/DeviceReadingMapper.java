@@ -6,7 +6,7 @@ import com.example.medicore.entity.DeviceReading;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "string")
+@Mapper(componentModel = "spring")
 public interface DeviceReadingMapper {
 
     @Mapping(target = "device", ignore = true)

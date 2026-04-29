@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "string")
+@Mapper(componentModel = "spring")
 public interface DoctorMapper {
     Doctor toEntity(DoctorRequestDTO doctorRequestDTO);
     DoctorResponseDTO toDTO(Doctor doctor);

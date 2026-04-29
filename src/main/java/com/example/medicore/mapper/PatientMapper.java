@@ -12,7 +12,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface PatientMapper {
 
     Patient toEntity(PatientRequestDTO patientRequestDTO);
-    PatientResponseDTO toDTO(Patient patient);
+
+     PatientResponseDTO toDTO(Patient patient);
 
     //For Put: only update non-null fields from the DTO
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

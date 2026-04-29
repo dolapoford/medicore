@@ -5,7 +5,7 @@ import com.example.medicore.dto.iot.IoTDeviceResponseDTO;
 import com.example.medicore.entity.IoTDevice;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "string")
+@Mapper(componentModel = "spring")
 public interface IoTDeviceMapper {
 
     @Mapping(target = "patient", ignore = true)
