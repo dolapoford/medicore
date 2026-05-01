@@ -9,13 +9,13 @@ import org.mapstruct.*;
 public interface IoTDeviceMapper {
 
     @Mapping(target = "patient", ignore = true)
-    IoTDevice toEntity(IoTDeviceRequestDTO ioTDeviceRequestDTO);
+    IoTDevice toEntity(IoTDeviceRequestDTO dto);
 
-    @Mapping(source = "patient.id", target = "patientId")
-    IoTDeviceResponseDTO toDTO(IoTDevice ioTDevice);
+    @Mapping(target = "patientId",
+            expression = "java(device.getPatient() != null ? device.getPatient().getId() : null)")
+    IoTDeviceResponseDTO toDTO(IoTDevice device);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "patient", ignore = true)
-    void updateEntityFromDTO(IoTDeviceRequestDTO ioTDeviceRequestDTO, @MappingTarget IoTDevice ioTDevice);
-
+    void updateEntityFromDTO(IoTDeviceRequestDTO dto, @MappingTarget IoTDevice device);
 }
