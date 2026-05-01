@@ -5,7 +5,10 @@ import com.example.medicore.dto.response.AppointmentResponseDTO;
 import com.example.medicore.entity.Appointment;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+        componentModel = "spring",
+        uses = {PatientMapper.class, DoctorMapper.class}
+)
 public interface AppointmentMapper {
 
     @Mapping(target = "patient", ignore = true)
