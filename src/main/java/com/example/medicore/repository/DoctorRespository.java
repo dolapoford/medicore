@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface DoctorRespository extends JpaRepository<Doctor,Long> {
     Optional<Doctor> findByEmail(String email);
     boolean existsByEmail(String email);
-    Page<Doctor> findBySpecialization(String specialization, Pageable pageable);
+    List<Doctor> findBySpecialization(String specialization);
 }

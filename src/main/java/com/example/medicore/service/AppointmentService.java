@@ -49,20 +49,25 @@ public class AppointmentService {
     }
 
 
-    public AppointmentResponseDTO updateAppointment(Long id, AppointmentRequestDTO appointmentRequestDTO){
+    public AppointmentResponseDTO updateAppointment(Long id,Appointment.AppointmentStatus newStatus){
 
         Appointment appointment = appointmentRepository.findById(id).orElseThrow(()-> new RuntimeException("Appointment not found"));
-
-        appointment.setStatus(Appointment.AppointmentStatus.COMPLETED);
+        if(appointment.getStatus() == Appointment.AppointmentStatus.CANCELLED){
+            throw new RuntimeException("Cannot be updated");
+        }
+        appointment.setStatus(newStatus);
         appointmentRepository.save(appointment);
 
         return appointmentMapper.toDTO(appointment);
     }
 
 
-    public AppointmentResponseDTO cancelAppointment(Long id, AppointmentRequestDTO appointmentRequestDTO){
+    public AppointmentResponseDTO cancelAppointment(Long id){
         Appointment appointment = appointmentRepository.findById(id).orElseThrow(()-> new RuntimeException("Appointment not found"));
 
+        if(appointment.getStatus() == Appointment.AppointmentStatus.COMPLETED){
+            throw new RuntimeException("Cannot be updated");
+        }
         appointment.setStatus(Appointment.AppointmentStatus.CANCELLED);
 
         appointmentRepository.save(appointment);

@@ -24,15 +24,17 @@ public class PatientService {
         if(patientRepository.existsByEmail(patientRequestDTO.getEmail())){
             throw new RuntimeException("Patient with this email already exist");
         }
-        Patient patient = Patient.builder()
-                .firstName(patientRequestDTO.getFirstName())
-                .lastName(patientRequestDTO.getLastName())
-                .email(patientRequestDTO.getEmail())
-                .address(patientRequestDTO.getAddress())
-                .gender(patientRequestDTO.getGender())
-                .dateOfBirth(patientRequestDTO.getDateOfBirth())
-                .phoneNumber(patientRequestDTO.getPhoneNumber())
-                .build();
+        Patient patient = patientMapper.toEntity(patientRequestDTO);
+
+//        Patient.builder()
+//                .firstName(patientRequestDTO.getFirstName())
+//                .lastName(patientRequestDTO.getLastName())
+//                .email(patientRequestDTO.getEmail())
+//                .address(patientRequestDTO.getAddress())
+//                .gender(patientRequestDTO.getGender())
+//                .dateOfBirth(patientRequestDTO.getDateOfBirth())
+//                .phoneNumber(patientRequestDTO.getPhoneNumber())
+//                .build();
 
         patientRepository.save(patient);
 
@@ -65,7 +67,7 @@ public class PatientService {
 
         Patient patient = patientRepository.findById(id).orElseThrow(()-> new RuntimeException("Patient not found"));
 
-        if (patientRequestDTO.getEmail() != null || !patientRequestDTO.getEmail().equals(patient.getEmail()) ){
+        if (patientRequestDTO.getEmail() != null && !patientRequestDTO.getEmail().equals(patient.getEmail()) ){
             if (patientRepository.existsByEmail(patientRequestDTO.getEmail())){
                 throw new RuntimeException("Email Already exist");
             }

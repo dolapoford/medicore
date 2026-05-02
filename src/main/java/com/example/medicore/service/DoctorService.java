@@ -49,16 +49,16 @@ public class DoctorService {
         return doctorMapper.toDTO(doctor);
     }
 
-    public Page<DoctorResponseDTO> getAllDoctor(String specialization, Pageable pageable){
-        Page<Doctor> doctors;
+    public List<DoctorResponseDTO> getAllDoctor(String specialization){
+        List<Doctor> doctors;
 
         if (specialization != null && !specialization.isBlank()){
-            doctors = doctorRespository.findBySpecialization(specialization, pageable);
+            doctors = doctorRespository.findBySpecialization(specialization);
         }else{
-            doctors = doctorRespository.findAll(pageable);
+            doctors = doctorRespository.findAll();
         }
 
-       return doctors.map(doctorMapper::toDTO);
+       return doctors.stream().map(doctorMapper::toDTO).toList();
 
 
     }
