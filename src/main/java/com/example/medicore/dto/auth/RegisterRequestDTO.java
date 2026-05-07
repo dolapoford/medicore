@@ -1,6 +1,7 @@
 package com.example.medicore.dto.auth;
 
 import com.example.medicore.entity.User;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +22,7 @@ public class RegisterRequestDTO {
     @NotNull
     private User.Role role;
 
+    @Column(nullable = true)
     private  Long doctorId;
 
 
