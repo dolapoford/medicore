@@ -5,7 +5,7 @@ import com.example.medicore.dto.auth.LoginRequestDTO;
 import com.example.medicore.dto.auth.RegisterRequestDTO;
 import com.example.medicore.entity.Doctor;
 import com.example.medicore.entity.User;
-import com.example.medicore.repository.DoctorRespository;
+import com.example.medicore.repository.DoctorRepository;
 import com.example.medicore.repository.UserRepository;
 import com.example.medicore.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class AuthenticationService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
-    private final DoctorRespository doctorRespository;
+    private final DoctorRepository doctorRespository;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -59,23 +59,27 @@ public class AuthenticationService {
         return new AuthResponseDTO(accessToken,refreshToken,"Bearer");
     }
 
-    public AuthResponseDTO login(LoginRequestDTO loginRequestDTO){
+    public AuthResponseDTO login(LoginRequestDTO loginRequestDTO) {
 
-       User user = userRepository.findByEmail(loginRequestDTO.getEmail()).orElseThrow(()-> new RuntimeException("Invalid user or password"));
+        User user = userRepository.findByEmail(loginRequestDTO.getEmail())
+                .orElseThrow(() -> new RuntimeException(
+                        "No user found with email: " + loginRequestDTO.getEmail()  // tells you if email lookup fails
+                ));
 
-
-        if (!passwordEncoder.matches(loginRequestDTO.getPassword(), user.getPassword() )){
-            throw new RuntimeException("Invalid User or Password");
+        if (!passwordEncoder.matches(loginRequestDTO.getPassword(), user.getPassword())) {
+            throw new RuntimeException(
+                    "Password mismatch for: " + loginRequestDTO.getEmail()  // tells you if password check fails
+            );
         }
 
         List<String> roles = List.of(user.getRole().name());
-        String accessToken = jwtService.generateAccessToken(user,roles);
+        String accessToken = jwtService.generateAccessToken(user, roles);
         String refreshToken = jwtService.generateRefreshToken(user);
 
         user.setRefreshToken(refreshToken);
         userRepository.save(user);
 
-        return new AuthResponseDTO(accessToken,refreshToken,"Bearer");
+        return new AuthResponseDTO(accessToken, refreshToken, "Bearer");
     }
 
 
