@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseDTO> registerUser(RegisterRequestDTO registerRequestDTO){
+    public ResponseEntity<AuthResponseDTO> registerUser(@RequestBody RegisterRequestDTO registerRequestDTO){
         AuthResponseDTO authResponseDTO = authenticationService.register(registerRequestDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(authResponseDTO);
@@ -27,7 +28,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> loginUser(LoginRequestDTO loginRequestDTO){
+    public ResponseEntity<AuthResponseDTO> loginUser(@RequestBody LoginRequestDTO loginRequestDTO){
         AuthResponseDTO authResponseDTO = authenticationService.login(loginRequestDTO);
 
         return ResponseEntity.ok(authResponseDTO);
