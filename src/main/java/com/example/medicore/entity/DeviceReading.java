@@ -27,7 +27,7 @@ public class DeviceReading {
     private IoTDevice device;
 
     @NotNull(message = "Reading value is required")
-    @Column(nullable = false)
+    @Column(name = "reading_value", nullable = false)
     private Double value;
 
     @NotBlank(message = "Unit is required (e.g. bpm, °C, %SpO2)")
@@ -39,9 +39,9 @@ public class DeviceReading {
     private LocalDateTime recordedAt = LocalDateTime.now();
 
     // true = anomaly flagged by scheduled job
-    @Column(name = "is_anomaly")
+//    @Column(name = "is_anomaly")
     @Builder.Default
-    private Boolean isAnomaly = false;
+    private boolean isAnomaly = false;
 
     @Column(columnDefinition = "TEXT")
     private String notes;

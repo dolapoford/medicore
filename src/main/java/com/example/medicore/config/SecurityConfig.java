@@ -3,6 +3,7 @@ package com.example.medicore.config;
 import com.example.medicore.security.JwtAuthenticationEntryPoint;
 import com.example.medicore.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.security.autoconfigure.web.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,25 +32,25 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws  Exception{
-        httpSecurity.csrf(csrf-> csrf.disable())
-                .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(
-                        auth -> auth
-                                .requestMatchers("/patients/public").permitAll()
-                                .anyRequest().authenticated()
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.disable()))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/h2-console", "/h2-console/**").permitAll()
+                        .requestMatchers("/patients/public").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(jwtAuthenticationEntryPoint));
-//                .formLogin(Customizer.withDefaults());
 
         return httpSecurity.build();
-
     }
 
-
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration){
+    public AuthenticationManager authenticationManager (AuthenticationConfiguration configuration) throws Exception{
         return configuration.getAuthenticationManager();
     }
 
