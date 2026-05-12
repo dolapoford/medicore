@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface IoTDeviceRepository extends JpaRepository<IoTDevice,Long> {
     Optional<IoTDevice> findBySerialNumber(String serialNumber);
 
+    boolean existsBySerialNumber(String serialNumber);
     List<IoTDevice> findByPatientId(Long patientId);
 
     List<IoTDevice> findByStatus(IoTDevice.DeviceStatus status);
