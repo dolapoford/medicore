@@ -24,7 +24,8 @@ public class ScheduledAlertJob {
 
 
         if (recentAnomalies.isEmpty()){
-            log.info("no anomalies found");
+            log.debug("no anomalies found");
+            return;
         }
 
         for (DeviceReading anomaly : recentAnomalies){
