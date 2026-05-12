@@ -29,12 +29,31 @@ public class PatientController {
 
 
     @GetMapping
-    public ResponseEntity<Page<PatientResponseDTO>> getAllPatient(@RequestParam Pageable pageable, @RequestParam String firstName, @RequestParam String lastName){
+    public ResponseEntity<Page<PatientResponseDTO>> getAllPatient( Pageable pageable, @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName){
 
         Page<PatientResponseDTO> patients = patientService.getAllPatient(pageable,firstName,lastName);
 
         return ResponseEntity.ok(patients);
     }
+
+
+    @GetMapping("/{patientId}")
+   public ResponseEntity<PatientResponseDTO> getPatientBy(@PathVariable Long patientId){
+        PatientResponseDTO patientResponseDTO = patientService.getPatientById(patientId);
+
+        return ResponseEntity.ok(patientResponseDTO);
+   }
+
+
+   @PutMapping("/{patientId}")
+   public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable Long patientId, @RequestBody @Valid PatientRequestDTO patientRequestDTO) {
+       PatientResponseDTO patientResponseDTO = patientService.updatePatient(patientId, patientRequestDTO);
+
+       return ResponseEntity.ok(patientResponseDTO);
+
+   }
+
+
 
     @GetMapping("/public")
     public String displayPublic(){
