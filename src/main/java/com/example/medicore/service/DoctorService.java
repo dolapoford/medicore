@@ -5,7 +5,7 @@ import com.example.medicore.dto.response.DoctorResponseDTO;
 import com.example.medicore.entity.Doctor;
 import com.example.medicore.mapper.DoctorMapper;
 import com.example.medicore.repository.AppointmentRepository;
-import com.example.medicore.repository.DoctorRespository;
+import com.example.medicore.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.data.autoconfigure.web.DataWebProperties;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DoctorService {
 
-    private final DoctorRespository doctorRespository;
+    private final DoctorRepository doctorRespository;
     private final AppointmentRepository appointmentRepository;
     private final DoctorMapper doctorMapper;
 

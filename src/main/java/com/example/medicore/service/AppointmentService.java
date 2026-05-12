@@ -7,7 +7,7 @@ import com.example.medicore.entity.Doctor;
 import com.example.medicore.entity.Patient;
 import com.example.medicore.mapper.AppointmentMapper;
 import com.example.medicore.repository.AppointmentRepository;
-import com.example.medicore.repository.DoctorRespository;
+import com.example.medicore.repository.DoctorRepository;
 import com.example.medicore.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
-    private final DoctorRespository doctorRespository;
+    private final DoctorRepository doctorRespository;
     private final PatientRepository patientRepository;
     private final AppointmentMapper appointmentMapper;
 
