@@ -44,8 +44,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/h2-console",
-                                "/h2-console/**",
+
                                 "/auth/**"       // add your auth endpoints here
                         ).permitAll()
                         .requestMatchers("/patients/public").permitAll()
