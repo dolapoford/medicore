@@ -27,7 +27,7 @@ public class DeviceReading {
     private IoTDevice device;
 
     @NotNull(message = "Reading value is required")
-    @Column(name = "reading_value", nullable = false)
+    @Column(name = "value", nullable = false)
     private Double value;
 
     @NotBlank(message = "Unit is required (e.g. bpm, °C, %SpO2)")
