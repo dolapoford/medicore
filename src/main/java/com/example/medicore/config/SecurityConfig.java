@@ -44,7 +44,9 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
                                 "/auth/**"       // add your auth endpoints here
                         ).permitAll()
                         .requestMatchers("/patients/public").permitAll()
