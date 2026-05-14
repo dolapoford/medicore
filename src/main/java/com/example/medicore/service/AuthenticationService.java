@@ -83,8 +83,8 @@ public class AuthenticationService {
     }
 
 
-    public void logout(Long id){
-        User user = userRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
+    public void logout(String email){
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new RuntimeException("User not found"));
         user.setRefreshToken(null);
         userRepository.save(user);
     }

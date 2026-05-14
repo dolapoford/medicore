@@ -60,8 +60,9 @@ public class AnomalyDetectionService {
             reading.setAnomaly(true);
             deviceReadingRepository.save(reading);
             log.warn("Anomaly detected for device {} with value {}", reading.getId(), value);
+            applicationEventPublisher.publishEvent(new AlertEvent(this, reading));
         }
 
-        applicationEventPublisher.publishEvent(new AlertEvent(this, reading));
+
     }
 }
