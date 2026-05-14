@@ -52,7 +52,7 @@ public class PatientController {
             @ApiResponse(responseCode = "404", description = "Patient not found")
     })
     @GetMapping("/{patientId}")
-   public ResponseEntity<PatientResponseDTO> getPatientBy(@PathVariable Long patientId){
+   public ResponseEntity<PatientResponseDTO> getPatientById(@PathVariable Long patientId){
         PatientResponseDTO patientResponseDTO = patientService.getPatientById(patientId);
 
         return ResponseEntity.ok(patientResponseDTO);
