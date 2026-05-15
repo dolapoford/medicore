@@ -18,8 +18,14 @@ public class AlertEventListener {
         DeviceReading deviceReading = event.getDeviceReading();
         IoTDevice device = deviceReading.getDevice();
 
-        log.warn("🚨 ALERT — PatientId: {}, Device: {} ({}), Reading: {} {}, Time: {}",
-                             device.getPatient() != null ? device.getPatient().getId() : null,
+        log.warn("🚨 ALERT — PatientLinked: {}, Device: {} ({}), Reading: {} {}, Time: {}",
+                             device.getPatient() != null,
+                 device.getName(),
+                 device.getDeviceType(),
+                 deviceReading.getValue(),
+                 deviceReading.getUnit(),
+                 deviceReading.getRecordedAt()
+         );
                 device.getName(),
                 device.getDeviceType(),
                 deviceReading.getValue(),
