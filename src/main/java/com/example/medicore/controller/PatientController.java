@@ -23,11 +23,11 @@ public class PatientController {
 
     private final PatientService patientService;
 
-    @Operation(summary = "Create a new patient")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Patient Created Successfully"),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
-            @ApiResponse(responseCode = "409", description = "Email already in use")
+    `@Operation`(summary = "Create a new patient")
+    `@ApiResponses`({
+            `@ApiResponse`(responseCode = "201", description = "Patient Created Successfully"),
+            `@ApiResponse`(responseCode = "400", description = "Validation error"),
+            `@ApiResponse`(responseCode = "409", description = "Email already in use")
     })
     @PostMapping
     public ResponseEntity<PatientResponseDTO> createPatient(@RequestBody @Valid PatientRequestDTO patientRequestDTO){

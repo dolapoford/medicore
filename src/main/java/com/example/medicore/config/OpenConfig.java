@@ -19,7 +19,7 @@ public class OpenConfig {
                         new Info()
                                 .title("Medicore API")
                                 .description("Comprehensive REST API for Medicore system with authentication, " +
-                                        "patient management, appointment scheduling, and medical record management")
+                                        "patient management, and appointment scheduling")
                                 .version("1.0.0")
                                 .contact(new Contact()
                                         .name("Medicore")
