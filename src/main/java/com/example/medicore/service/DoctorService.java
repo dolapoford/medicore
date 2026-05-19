@@ -7,7 +7,8 @@ import com.example.medicore.mapper.DoctorMapper;
 import com.example.medicore.repository.AppointmentRepository;
 import com.example.medicore.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.data.autoconfigure.web.DataWebProperties;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,7 @@ public class DoctorService {
 
     }
 
+    @Cacheable(value = "doctors",key = "#id")
     public DoctorResponseDTO getDoctorById(Long id){
         Doctor doctor = doctorRespository.findById(id).orElseThrow(()-> new RuntimeException("Doctor not found"));
 
@@ -63,6 +65,7 @@ public class DoctorService {
 
     }
 
+    @CacheEvict(value = "patients",key = "#id")
     public DoctorResponseDTO updateDoctor(Long id, DoctorRequestDTO doctorRequestDTO){
 
         Doctor doctor = doctorRespository.findById(id).orElseThrow(()-> new RuntimeException("Doctor not found"));
@@ -86,6 +89,7 @@ public class DoctorService {
         return doctorMapper.toDTO(doctor);
     }
 
+    @CacheEvict(value = "patients",key = "#id")
     public void deleteDoctor(Long id){
         Doctor doctor = doctorRespository.findById(id).orElseThrow(()-> new RuntimeException("Doctor not found"));
 
