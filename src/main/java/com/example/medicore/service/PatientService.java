@@ -6,6 +6,8 @@ import com.example.medicore.entity.Patient;
 import com.example.medicore.mapper.PatientMapper;
 import com.example.medicore.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,7 @@ public class PatientService {
         return patientMapper.toDTO(patient);
     }
 
+    @Cacheable(value = "patients",key = "#id")
     public PatientResponseDTO getPatientById(Long id){
 
     Patient patient = patientRepository.findById(id).orElseThrow(()-> new RuntimeException("Patient Not Found"));
@@ -48,6 +51,7 @@ public class PatientService {
     return patientMapper.toDTO(patient);
 
     }
+
 
     public Page<PatientResponseDTO> getAllPatient(Pageable page, String firstName, String lastName) {
 
@@ -63,6 +67,7 @@ public class PatientService {
     }
 
 
+    @CacheEvict(value = "patients",key = "#id")
     public PatientResponseDTO updatePatient(Long id , PatientRequestDTO patientRequestDTO){
 
         Patient patient = patientRepository.findById(id).orElseThrow(()-> new RuntimeException("Patient not found"));
@@ -87,6 +92,7 @@ public class PatientService {
 
     }
 
+    @CacheEvict(value = "patients",key = "#id")
     public void deletePatient(Long id){
        if (!patientRepository.existsById(id)){
            throw new RuntimeException("Patient not found");
