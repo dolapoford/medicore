@@ -25,7 +25,8 @@ public class OpenConfig {
                                         .name("Medicore")
                                         .email("admin@medicore.com"))
                 )
-                 .components(new Components()
+                .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
+                .components(new Components()
                         .addSecuritySchemes("Bearer Authentication",
                                 new SecurityScheme()
                                         .type(SecurityScheme.Type.HTTP)
